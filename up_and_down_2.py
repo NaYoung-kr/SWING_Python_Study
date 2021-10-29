@@ -1,16 +1,27 @@
 from random import *    # 랜덤 모듈 호출
 from datetime import datetime
+import os.path
 
 record_all = []    # 닉네임, 기록, 날짜정보 리스트
 record_num = []     # 기록 리스트
 
-f = open("game_record.txt", "r")
-text = f.read()
+#############################################
+
+# 사용자에게 파일이 아예 존재하지 않는 경우 처리
+
+if os.path.isfile("game_record.txt"):
+    f = open("game_record.txt", "r")
+    text = f.read()
+    record_all = text.split("\n")
+    a = record_all[0].split(" ")  # 1위의 닉네임, 기록, 날짜정보를 담은 리스트
+    record_num.append(int(a[1]))  # 그 리스트 중 기록만 기록 리스트에 저장 (게임을 이어서 하기 위해)
+else:
+    f = open("game_record.txt", "w")
+
+#############################################
+
 f.close()
 
-record_all = text.split("\n")
-a = record_all[0].split(" ")    # 1위의 닉네임, 기록, 날짜정보를 담은 리스트
-record_num.append(int(a[1]))    # 그 리스트 중 기록만 기록 리스트에 저장 (게임을 이어서 하기 위해)
 
 while (1):
     print("UP & DOWN 게임에 오신걸 환영합니다~")
